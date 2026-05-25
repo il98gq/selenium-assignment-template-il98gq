@@ -45,11 +45,11 @@ public class SeleniumTest {
 
     @Test
     public void testForms() {
-        // "Fill an input field (text, radio, checkbox, date, etc.) — each different type counts as one"
+        // "Fill an input field (text, radio, checkbox, date, etc.) — each different type counts as one" - The whole sign up page does this
         // "Fill or read the content of a textarea element"
         // "Select or verify a radio button"
-        // "Submit a form (each distinct form counts as one)"
-        // "Submit a form that requires a registered/logged-in user"
+        // "Submit a form (each distinct form counts as one)" - signup, login, review (3)
+        // "Submit a form that requires a registered/logged-in user" - (probably paying for the cart)
     }
 
     @Test
@@ -63,6 +63,7 @@ public class SeleniumTest {
     public void testMultiplePages() {
         // "Define an array of URLs or page data, iterate over them and verify something on each page 
         // (e.g. check title or a specific element on 5 different pages using a loop)"
+        String[] URLs = {"", "", "", ""};
     }
 
     @Test

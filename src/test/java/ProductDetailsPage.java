@@ -3,7 +3,7 @@ import org.openqa.selenium.WebDriver;
 
 public class ProductDetailsPage extends PageBase {
 
-    // private By reviewFormBy = By.id("review-form"); // to do: rewrite to be in xpath format
+    // to do: rewrite to be in xpath format
     private By inputNameBy = By.id("name");
     private By inputEmailBy = By.id("email");
     private By textAreaBy = By.id("review");
@@ -11,6 +11,10 @@ public class ProductDetailsPage extends PageBase {
 
     public ProductDetailsPage(WebDriver driver) {
         super(driver);
+    }
+
+    public void displayProductInfo() {
+        // to do
     }
 
     public void writeReview(String userName, String email, String review) {

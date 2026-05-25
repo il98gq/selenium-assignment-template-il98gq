@@ -31,4 +31,8 @@ class ProductsPage extends PageBase {
         this.waitAndReturnElement(searchBarBy).sendKeys(searchQuery, Keys.ENTER);
         // return new SearchResultPage(this.driver);
     }
+
+    public void searchByCathegory() {
+        // to do
+    }
 }

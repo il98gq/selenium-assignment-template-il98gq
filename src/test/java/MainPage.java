@@ -20,7 +20,7 @@ class MainPage extends PageBase {
         super(driver);
     }    
 
-    public String getProductInfo() {
+    public String getRecommendedProductInfo() {
         return this.waitAndReturnElement(productInfoBy).getText();
     }
     
