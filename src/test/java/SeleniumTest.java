@@ -14,6 +14,7 @@ import java.util.*;
 
 import java.net.URL;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
@@ -21,23 +22,23 @@ import java.net.MalformedURLException;
 
 public class SeleniumTest {
     public WebDriver driver;
+    private PageBase mainPage;
     
     @Before
     public void setup()  throws MalformedURLException  {
         ChromeOptions options = new ChromeOptions();
         driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
+        driver.get("https://automationexercise.com");
         driver.manage().window().maximize();
-    }
 
-    @Test
-    public void testFooter() {
-        MainPage main = new MainPage(driver);
-        assertTrue(main.getFooterText().contains("Subscription"));
+        mainPage = new MainPage(driver);
     }
 
     @Test
     public void testLoginAndLogout() {
         // "Fill a simple form and submit it (e.g. login with username and password)"
+        LoginPage login = new LoginPage(driver);
+        login.loginValidUser("null", "null");
         // "Log out from the application and verify it"
 
     }
@@ -54,17 +55,14 @@ public class SeleniumTest {
     @Test
     public void testStaticPage() {
         // "Test a static page (verify text content, element presence, etc.)"
+        assertTrue(mainPage.getFooterText().contains("Subscription"));
+
     }
 
     @Test
     public void testMultiplePages() {
         // "Define an array of URLs or page data, iterate over them and verify something on each page 
         // (e.g. check title or a specific element on 5 different pages using a loop)"
-    }
-
-    @Test
-    public void testComplexXPath() {
-        // "Use a complex XPath expression (e.g. //div[@class='content']//a[contains(@href,'profile')])"
     }
 
     @Test
@@ -80,6 +78,7 @@ public class SeleniumTest {
     @Test
     public void testPageTitle() {
         // "Read and verify the page title using getTitle()"
+        assertTrue(driver.getTitle().contains("Automation Exercise"));
     }
     
     // @Test

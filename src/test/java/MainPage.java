@@ -18,7 +18,6 @@ class MainPage extends PageBase {
 
     public MainPage(WebDriver driver) {
         super(driver);
-        this.driver.get("https://automationexercise.com");
     }    
 
     public String getProductInfo() {

@@ -13,16 +13,22 @@ import org.openqa.selenium.NoSuchElementException;
 
 
 class ProductsPage extends PageBase {
-    private By searchBarTogglerBy = By.id("search-box-toggle");
-    private By searchBarBy = By.xpath("//div[@id='search-box']//input[@type='search']");
+    // private By searchBarTogglerBy = By.id("search-box-toggle");
+    // private By searchButtonBy = By.xpath("//section[@id='advertisement']//div[@class='container']//button[@id='submit_search']");
+    
+    private By searchBarBy = By.xpath("//section[@id='advertisement']//div[@class='container']//input[@id='search_product']");
+    private By productCathegoriesBy = 
+        By.xpath(
+            "//section//div[@class='container']//div[@class='row']//div[contains(@class, 'col')]//div//div[contains(@class, 'cathegory')]"
+        );
 
     public ProductsPage(WebDriver driver) {
         super(driver);
     }
 
-    // public SearchResultPage search(String searchQuery) {
-    //     this.waitAndReturnElement(searchBarTogglerBy).click();
-    //     this.waitAndReturnElement(searchBarBy).sendKeys(searchQuery, Keys.ENTER);
-    //     return new SearchResultPage(this.driver);
-    // }
+    public void searchForProduct(String searchQuery) {
+        // this.waitAndReturnElement(searchBarTogglerBy).click();
+        this.waitAndReturnElement(searchBarBy).sendKeys(searchQuery, Keys.ENTER);
+        // return new SearchResultPage(this.driver);
+    }
 }

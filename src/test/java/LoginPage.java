@@ -5,20 +5,20 @@ import org.openqa.selenium.Keys;
 public class LoginPage extends PageBase {
 
     private By emailBy = By.name("email");
-    // <input name="password" type="password" value="">
     private By passwordBy = By.name("password");
-    // <input name="sign_in" type="submit" value="SignIn">
-    private By loginBy = By.name("sign_in");
+    private By loginBy = 
+        By.xpath(
+            "//div[@class='container']/div[@class='row']/div[contains(@class, 'offset-1')]/div[@class='login-form']/form/button[@data-qa='login-button']"
+        );
     
     public LoginPage(WebDriver driver) {
         super(driver);
-        this.driver.get("https://automationexercise.com/login");
     }
 
-    // public HomePage loginValidUser(String userName, String password) {
-    //     driver.findElement(emailBy).sendKeys(userName);
-    //     driver.findElement(passwordBy).sendKeys(password);
-    //     driver.findElement(loginBy).click();
-    //     return new HomePage(driver);
-    // }
+    public MainPage loginValidUser(String userName, String password) {
+        driver.findElement(emailBy).sendKeys(userName);
+        driver.findElement(passwordBy).sendKeys(password);
+        driver.findElement(loginBy).click();
+        return new MainPage(driver);
+    }
 }
