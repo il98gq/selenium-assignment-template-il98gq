@@ -15,8 +15,6 @@ import org.openqa.selenium.NoSuchElementException;
 class MainPage extends PageBase {
 
     private By productInfoBy = By.xpath("");
-    private By searchBarTogglerBy = By.id("search-box-toggle");
-    private By searchBarBy = By.xpath("//div[@id='search-box']//input[@type='search']");
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -27,9 +25,9 @@ class MainPage extends PageBase {
         return this.waitAndReturnElement(productInfoBy).getText();
     }
     
-    public SearchResultPage search(String searchQuery) {
-        this.waitAndReturnElement(searchBarTogglerBy).click();
-        this.waitAndReturnElement(searchBarBy).sendKeys(searchQuery, Keys.ENTER);
-        return new SearchResultPage(this.driver);
+    // redirect to ProductDetailsPage
+    public ProductDetailsPage getProductDetails() {
+        // 
+        return new ProductDetailsPage(driver);
     }
 }

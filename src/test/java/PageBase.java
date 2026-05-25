@@ -19,9 +19,9 @@ class PageBase {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    private By bodyBy = By.tagName("body");
+    protected By bodyBy = By.tagName("body");
     // private By footerBy = By.id("footer");
-    private By footerBottomBy = By.xpath("//div[contains(@class, 'footer-bottom')]/div/div/p");
+    protected By footerBottomBy = By.xpath("//div[contains(@class, 'footer-bottom')]/div/div/p");
     
     
     public PageBase(WebDriver driver) {
