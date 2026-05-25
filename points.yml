@@ -8,7 +8,7 @@
 # ============================================================
 
 student:
-  website_under_test: ""
+  website_under_test: "https://automationexercise.com"
     
     
 # ----------------------------------------------------------
@@ -19,9 +19,9 @@ student:
 # This has no effect on your grade.
 # ----------------------------------------------------------
 ai_usage:
-  used: false
-  tools: ""           # e.g. "Claude, GitHub Copilot"
-  description: ""     # e.g. "Used Claude to generate initial Page Object 
+  used: true
+  tools: "ChatGPT"           # e.g. "Claude, GitHub Copilot"
+  description: "Used ChatGPT to find a suitable website that wasn't already taken."     # e.g. "Used Claude to generate initial Page Object 
                        #  classes, then modified them manually. Used Copilot 
                        #  for autocomplete while writing test methods."
                        
@@ -98,7 +98,7 @@ basic:
     description: "Select or verify a radio button"
 
   at_least_4_classes:        # 3 pts | once
-    done: false
+    done: true
     description: "Project has at least 4 Java classes"
 
   at_least_6_classes:        # 3 pts | once
