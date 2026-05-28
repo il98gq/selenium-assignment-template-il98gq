@@ -55,7 +55,7 @@ public class SeleniumTest {
     @Test
     public void testStaticPage() {
         // "Test a static page (verify text content, element presence, etc.)"
-        assertTrue(mainPage.getFooterText().contains("Subscription"));
+        assertTrue(mainPage.getFooterBottomText().contains("Subscription"));
 
     }
 

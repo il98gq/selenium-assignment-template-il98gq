@@ -11,7 +11,7 @@
 // import org.openqa.selenium.NoSuchElementException;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
+// import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.support.ui.*;
 
 
@@ -20,8 +20,8 @@ class PageBase {
     protected WebDriverWait wait;
 
     protected By bodyBy = By.tagName("body");
-    // private By footerBy = By.id("footer");
     protected By footerBottomBy = By.xpath("//div[contains(@class, 'footer-bottom')]/div/div/p");
+    protected By footerWidgetBy = By.xpath("//div[contains(@class, 'footer-widget')]/div/div/div[contains(@class, 'col')]/div/h2");
     
     
     public PageBase(WebDriver driver) {
@@ -39,7 +39,7 @@ class PageBase {
         return bodyElement.getText();
     }
 
-    public String getFooterText() {
+    public String getFooterBottomText() {
         return this.waitAndReturnElement(footerBottomBy).getText();
     }
    
