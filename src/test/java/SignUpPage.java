@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 public class SignUpPage extends PageBase {
     // //section//div//div//div//div//form
     // middleware token?
-    private By middleWareTokenBy = By.xpath("//section//div//div//div//div//form//input[contains(@name, 'token')]");
+    private By middleWareTokenBy = By.xpath("//section/div/div/div/div/form/input[1]");
     
     // title (radio)
     private By mrTitleBy = By.xpath("//section/div/div/div/div/form/div[1]/div[1]/label/div/span/input");
