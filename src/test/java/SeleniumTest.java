@@ -13,8 +13,10 @@ import org.openqa.selenium.NoSuchElementException;
 import java.util.*;  
 
 import java.net.URL;
+import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
@@ -22,64 +24,96 @@ import java.net.MalformedURLException;
 
 public class SeleniumTest {
     public WebDriver driver;
-    private PageBase mainPage;
+    private MainPage mainPage;
     
     @Before
     public void setup()  throws MalformedURLException  {
         ChromeOptions options = new ChromeOptions();
-        driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
+        driver = new ChromeDriver(options);
         driver.get("https://automationexercise.com");
         driver.manage().window().maximize();
 
+        System.out.println("mainPage: " + mainPage);
         mainPage = new MainPage(driver);
     }
 
-    @Test
-    public void testLoginAndLogout() {
-        // "Fill a simple form and submit it (e.g. login with username and password)"
-        LoginPage login = new LoginPage(driver);
-        login.loginValidUser("null", "null");
-        // "Log out from the application and verify it"
+    // @Test
+    // public void testLoginAndLogout() {
+    //     // "Fill a simple form and submit it (e.g. login with username and password)"
+    //     // LoginPage login = new LoginPage(driver);
+    //     // login.loginValidUser("null", "null");
+    //     // "Log out from the application and verify it"
 
-    }
+    // }
 
-    @Test
-    public void testForms() {
-        // "Fill an input field (text, radio, checkbox, date, etc.) — each different type counts as one" - The whole sign up page does this
-        // "Fill or read the content of a textarea element"
-        // "Select or verify a radio button"
-        // "Submit a form (each distinct form counts as one)" - signup, login, review (3)
-        // "Submit a form that requires a registered/logged-in user" - (probably paying for the cart)
-    }
+    // @Test
+    // public void submitSignUpForm() {
+    //     // "Fill an input field (text, radio, checkbox, date, etc.) — each different type counts as one" - The whole sign up page does this
+    //     // "Select or verify a radio button"
+    //     // "Submit a form (each distinct form counts as one)" - signup, login, review (3)
+    //     // "Submit a form that requires a registered/logged-in user" - (probably paying for the cart)
+    //     LoginPage loginPage = mainPage.navigateToLoginPage();
+    //     SignUpPage signUpPage = loginPage.redirectUserToSignUpPage("newuser", "new.user@example.com");
+    //     int[] dob = {7, 11, 5};
+    //     Dictionary<String, String> inputFields = new Hashtable<>();
+    //     inputFields.put("password", "password");
+    //     inputFields.put("firstname", "New");
+    //     inputFields.put("lastName", "User");
+    //     inputFields.put("company", "Some Company Kft.");
+    //     inputFields.put("address1", "Adress Street 11");
+    //     inputFields.put("address2", "");
+    //     inputFields.put("state", "Kansas");
+    //     inputFields.put("city", "Kansas City");
+    //     inputFields.put("zipcode", "1111");
+    //     inputFields.put("mobileNumber", "12 345 6789");
 
-    @Test
-    public void testStaticPage() {
-        // "Test a static page (verify text content, element presence, etc.)"
-        assertTrue(mainPage.getFooterBottomText().contains("Subscription"));
+    //     signUpPage.createValidAccount(inputFields, dob, 2);
+    //     System.out.println("Account successfully created.");
+    // }
+    // @Test
+    // public void submitLogInForm() {
+    //     // to do
+    // }
+    // @Test
+    // public void submitReviewForm() {
+    //     // "Fill or read the content of a textarea element"
+    // }
+    // @Test
+    // public void payForCart() {
+    //     // to do
+    // }
 
-    }
+    // @Test
+    // public void testStaticPage() {
+    //     // "Test a static page (verify text content, element presence, etc.)"
+    //     assertTrue(mainPage.getFooterBottomText().contains("Subscription"));
 
-    @Test
-    public void testMultiplePages() {
-        // "Define an array of URLs or page data, iterate over them and verify something on each page 
-        // (e.g. check title or a specific element on 5 different pages using a loop)"
-        String[] URLs = {"", "", "", ""};
-    }
+    // }
 
-    @Test
-    public void testDropDown() {
-        // "Select an option from a drop-down (using Select class or similar)"
-    }
+    // @Test
+    // public void testMultiplePages() {
+    //     // "Define an array of URLs or page data, iterate over them and verify something on each page 
+    //     // (e.g. check title or a specific element on 5 different pages using a loop)"
+    //     String[] URLs = {"", "", "", ""};
+    // }
+
+    // @Test
+    // public void testDropDown() {
+    //     // "Select an option from a drop-down (using Select class or similar)"
+    // }
 
     @Test
     public void testExplicitWait() {
-        // "Use explicit wait (WebDriverWait with ExpectedConditions)"
+        mainPage.navigateToLoginPage();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement userNameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//section//div[contains(@class, 'login')]/form/input[2]")));
+        userNameElement.sendKeys("Explicit wait testing.");
+        System.out.println("Username successfully entered in the input field.");
     }
 
     @Test
     public void testPageTitle() {
-        // "Read and verify the page title using getTitle()"
-        assertTrue(driver.getTitle().contains("Automation Exercise"));
+        assertTrue("Title should contain 'Automation Exercise'.", driver.getTitle().contains("Automation Exercise"));
     }
     
     // @Test
