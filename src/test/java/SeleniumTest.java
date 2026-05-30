@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Listeners;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -21,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 
+@Listeners(TestListener.class)
 
 public class SeleniumTest {
     public WebDriver driver;
@@ -94,7 +96,7 @@ public class SeleniumTest {
     @Test
     public void testStaticPage() {
         // "Test a static page (verify text content, element presence, etc.)"
-        assertTrue(mainPage.getFooterBottomText().contains("Copyright"));
+        assertTrue(mainPage.getFooterBottomText().contains("skibidi"));
 
     }
 
@@ -123,6 +125,12 @@ public class SeleniumTest {
     public void testPageTitle() {
         System.out.println(driver.getTitle());
         assertTrue("Title should contain 'Automation Exercise'.", driver.getTitle().contains("Automation Exercise"));
+    }
+
+    // ========================================================================================================================================= //
+    @Test
+    public void testAddCookie() {
+        // to do
     }
     
     // @Test

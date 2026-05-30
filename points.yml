@@ -21,9 +21,8 @@ student:
 ai_usage:
   used: true
   tools: "ChatGPT"           # e.g. "Claude, GitHub Copilot"
-  description: "Used ChatGPT to find a suitable website that wasn't already taken."     # e.g. "Used Claude to generate initial Page Object 
-                       #  classes, then modified them manually. Used Copilot 
-                       #  for autocomplete while writing test methods."
+  description: "Used ChatGPT to find a suitable website that wasn't already taken, to interpret error messages,
+                then solving the problems by manual research (StackOverflow, Selenium.dev, GeeksForGeeks, Youtube)."
                        
 # ----------------------------------------------------------
 # Quality requirements (gatekeepers)
@@ -41,7 +40,7 @@ quality:
     description: "Code is organized into classes and functions, not one big file"
 
   readable_code:             # required for grade 4+
-    done: false
+    done: true
     description: "Function and method names describe what they do, test suite reads like a test description"
 
   low_redundancy:            # required for grade 5
