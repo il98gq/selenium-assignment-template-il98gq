@@ -33,8 +33,16 @@ public class SeleniumTest {
         driver.get("https://automationexercise.com");
         driver.manage().window().maximize();
 
-        System.out.println("mainPage: " + mainPage);
+        WebElement cookieAccept = driver.findElement(By.cssSelector(".fc-cta-consent"));
+        System.out.println("Found cookie consent button.");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(cookieAccept));
+        wait.until(ExpectedConditions.elementToBeClickable(cookieAccept));
+        cookieAccept.click();
+        System.out.println("Clicked cookie consent.");
+
         mainPage = new MainPage(driver);
+        System.out.println("mainPage: " + mainPage);
     }
 
     // @Test
@@ -83,12 +91,12 @@ public class SeleniumTest {
     //     // to do
     // }
 
-    // @Test
-    // public void testStaticPage() {
-    //     // "Test a static page (verify text content, element presence, etc.)"
-    //     assertTrue(mainPage.getFooterBottomText().contains("Subscription"));
+    @Test
+    public void testStaticPage() {
+        // "Test a static page (verify text content, element presence, etc.)"
+        assertTrue(mainPage.getFooterBottomText().contains("Copyright"));
 
-    // }
+    }
 
     // @Test
     // public void testMultiplePages() {
@@ -113,6 +121,7 @@ public class SeleniumTest {
 
     @Test
     public void testPageTitle() {
+        System.out.println(driver.getTitle());
         assertTrue("Title should contain 'Automation Exercise'.", driver.getTitle().contains("Automation Exercise"));
     }
     
