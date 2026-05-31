@@ -14,7 +14,6 @@ import org.openqa.selenium.By;
 // import org.testng.annotations.Listeners;
 
 import java.time.Duration;
-// import java.util.*;
 
 // import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -36,17 +35,24 @@ public class SeleniumTest {
         driver.manage().window().maximize();
 
         WebElement cookieAccept = driver.findElement(By.cssSelector(".fc-cta-consent"));
-        System.out.println("Found cookie consent button.");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(cookieAccept));
         wait.until(ExpectedConditions.elementToBeClickable(cookieAccept));
         cookieAccept.click();
-        System.out.println("Clicked cookie consent.");
 
         mainPage = new MainPage(driver);
-        System.out.println("mainPage: " + mainPage);
     }
 
+    @Test
+    public void testSearchBar() {
+        ProductsPage productsPage = mainPage.toProductsPage();
+        productsPage.searchForProduct("Blue");
+        
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//section[@id='advertisement']")));
+        String productName = driver.findElement(By.xpath("//section[2]//div[@class='features_items']/div[@class='col-sm-4'][1]//p")).getText();
+        Assert.assertTrue(productName.contains("Blue"));
+    }
     @Test
     public void testReadInputValue() {
         LoginPage loginPage = mainPage.toLogIn();
@@ -115,16 +121,20 @@ public class SeleniumTest {
         System.out.println(errMessage);
         assertTrue(errMessage.equals(expectedMessage));
     }
-
+    
     @Test
     public void testSubmitReviewSuccess() {
         // "Fill or read the content of a textarea element"
         System.out.println("Review successfully submitted.");
     }
-    // @Test
-    // public void payForCart() {
-    //     // "Submit a form that requires a registered/logged-in user"
-    // }
+    @Test
+    public void testFillOrderMessage() {
+        // to do
+    }
+    @Test
+    public void testPlacingOrder() {
+        // "Submit a form that requires a registered/logged-in user"
+    }
 
     @Test
     public void testStaticPage() {
@@ -136,12 +146,19 @@ public class SeleniumTest {
         System.out.println("This test will fail.");
     }
 
-    // @Test
-    // public void testMultiplePages() {
-    //     // "Define an array of URLs or page data, iterate over them and verify something on each page 
-    //     // (e.g. check title or a specific element on 5 different pages using a loop)"
-    //     String[] URLs = {"", "", "", ""};
-    // }
+    @Test
+    public void testMultiplePages() {
+        // "Define an array of URLs or page data, iterate over them and verify something on each page 
+        // (e.g. check title or a specific element on 5 different pages using a loop)"
+        String[] URLs = {"https://automationexercise.com/", "https://automationexercise.com/products", "https://automationexercise.com/category_products/1"};
+        String[] titles = {"FEATURES ITEMS", "ALL PRODUCTS", "WOMEN - DRESS PRODUCTS"};
+        for (int i = 0; i < 3; i++) {
+            driver.get(URLs[i]);
+            String title = driver.findElement(By.xpath("//section//div[@class='features_items']/h2")).getText();
+            System.out.println("Expected: " + titles[i] + ", Actual: " + title);
+            assertEquals(titles[i], title);
+        }
+    }
 
     // @Test
     // public void testDropDown() {
@@ -168,17 +185,11 @@ public class SeleniumTest {
     public void testAddCookie() {
         // to do
     }
-    
-    // @Test
-    // public void testSearch() {
-    //     MainPage mainPage = new MainPage(this.driver);
-    //     Assert.assertTrue(mainPage.getFooterText().contains("Eötvös Loránd University"));
 
-    //     SearchResultPage searchResultPage = mainPage.search("Student guide 2025");
-    //     String bodyText = searchResultPage.getBodyText();
-    //     Assert.assertTrue(bodyText.contains("Searched content"));
-    //     Assert.assertTrue(bodyText.contains("Student guide 2025/26"));
-    // }
+    @Test
+    public void testHoverOverProduct() {
+        // to do
+    }
 
     // @Test
     // public void testSearch2() {
