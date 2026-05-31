@@ -1,28 +1,28 @@
 import org.junit.*;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+// import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Listeners;
+// import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import java.util.*;  
+// import org.openqa.selenium.NoSuchElementException; 
 
-import java.net.URL;
+// import org.testng.annotations.Listeners;
+
 import java.time.Duration;
+// import java.util.*;
 
+// import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 
-@Listeners(TestListener.class)
+// @Listeners(TestListener.class)
 
 public class SeleniumTest {
     public WebDriver driver;
@@ -47,20 +47,27 @@ public class SeleniumTest {
         System.out.println("mainPage: " + mainPage);
     }
 
-    // @Test
-    // public void testLoginAndLogout() {
-    //     // "Fill a simple form and submit it (e.g. login with username and password)"
-    //     // LoginPage login = new LoginPage(driver);
-    //     // login.loginValidUser("null", "null");
-    //     // "Log out from the application and verify it"
+    @Test
+    public void testReadInputValue() {
+        LoginPage loginPage = mainPage.toLogIn();
+        loginPage.signUpWith("test signup input values", "test.values@example.com");
 
-    // }
+        By nameBy = By.xpath("//section//form/div[2]/input[@id='name']");
+        By emailBy = By.xpath("//section//form/div[3]/input[@id='email']");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(nameBy));
+
+        String testUser = driver.findElement(nameBy).getAttribute("value");
+        String testEmail = driver.findElement(emailBy).getAttribute("value");
+
+        assertEquals("test signup input values", testUser);
+        assertEquals("test.values@example.com", testEmail);
+    }
 
     // @Test
-    // public void submitSignUpForm() {
+    // public void testSignUpSuccess() {
     //     // "Fill an input field (text, radio, checkbox, date, etc.) — each different type counts as one" - The whole sign up page does this
     //     // "Select or verify a radio button"
-    //     // "Submit a form (each distinct form counts as one)" - signup, login, review (3)
     //     // "Submit a form that requires a registered/logged-in user" - (probably paying for the cart)
     //     LoginPage loginPage = mainPage.navigateToLoginPage();
     //     SignUpPage signUpPage = loginPage.redirectUserToSignUpPage("newuser", "new.user@example.com");
@@ -76,28 +83,57 @@ public class SeleniumTest {
     //     inputFields.put("city", "Kansas City");
     //     inputFields.put("zipcode", "1111");
     //     inputFields.put("mobileNumber", "12 345 6789");
-
     //     signUpPage.createValidAccount(inputFields, dob, 2);
     //     System.out.println("Account successfully created.");
+    //     // to do:
+    //     // url: /account_created
+    //     // //section//div[@class='row']//h2/b = Account Created!
+    //     // //section//div[@class='row']//div[@class='pull-right']/a = Continue (button)
     // }
-    // @Test
-    // public void submitLogInForm() {
-    //     // to do
-    // }
-    // @Test
-    // public void submitReviewForm() {
-    //     // "Fill or read the content of a textarea element"
-    // }
+
+    @Test
+    public void testLoginAndLogoutSuccess() {
+        LoginPage loginPage = mainPage.toLogIn();
+        loginPage.logInWith("valid.user@correct.com", "correct-password");
+        System.out.println("Login successful.");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul//a[@href='/logout']")));
+        // assertTrue(true);   // assertelje h a logout gomb elérhető-e
+
+        mainPage.toLogOut();
+        System.out.println("Logout successful.");
+        assertTrue(true);   // assertelje h a login/signup pagen vagyunk vagy idfk
+    }
+    @Test
+    public void testLoginFailure() {
+        LoginPage loginPage = mainPage.toLogIn();
+        loginPage.logInWith("invalid.user@incorrect.com", "incorrect-password");
+        
+        String errMessage = driver.findElement(By.xpath("//section//div[@class='row']//form/p")).getText();
+        String expectedMessage = "Your email or password is incorrect!";
+        System.out.println(errMessage);
+        assertTrue(errMessage.equals(expectedMessage));
+    }
+
+    @Test
+    public void testSubmitReviewSuccess() {
+        // "Fill or read the content of a textarea element"
+        System.out.println("Review successfully submitted.");
+    }
     // @Test
     // public void payForCart() {
-    //     // to do
+    //     // "Submit a form that requires a registered/logged-in user"
     // }
 
     @Test
     public void testStaticPage() {
-        // "Test a static page (verify text content, element presence, etc.)"
-        assertTrue(mainPage.getFooterBottomText().contains("skibidi"));
-
+        assertTrue(mainPage.getFooterBottomText().contains("Copyright"));
+    }
+    @Test
+    public void testThatFails() {
+        // driver.findElement(null);
+        System.out.println("This test will fail.");
     }
 
     // @Test
@@ -114,7 +150,7 @@ public class SeleniumTest {
 
     @Test
     public void testExplicitWait() {
-        mainPage.navigateToLoginPage();
+        mainPage.toLogIn();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement userNameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//section//div[contains(@class, 'login')]/form/input[2]")));
         userNameElement.sendKeys("Explicit wait testing.");

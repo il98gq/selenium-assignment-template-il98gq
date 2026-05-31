@@ -7,15 +7,15 @@ import org.openqa.selenium.support.ui.Select;
 
 public class SignUpPage extends PageBase {
 
-    private String baseXPath = "//section/div/div/div/div/form/";
-    // private By middleWareTokenBy = By.xpath("//section/div/div/div/div/form/input[1]");
+    private String baseXPath = "//section//form/";
+
     private By middleWareTokenBy = By.xpath(baseXPath.concat("input[1]"));
     
     private By mrTitleBy = By.xpath(baseXPath.concat("div[1]/div[1]/label/div/span/input"));
     private By mrsTitleBy = By.xpath(baseXPath.concat("div[1]/div[2]/label/div/span/input"));
 
-    private By userNameBy = By.xpath(baseXPath.concat("div[2]/input[@id, 'name']"));
-    private By emailBy = By.xpath(baseXPath.concat("div[3]/input[1]"));
+    // private By userNameBy = By.xpath(baseXPath.concat("div[2]/input[@id, 'name']"));
+    // private By emailBy = By.xpath(baseXPath.concat("div[3]/input[1]"));
     private By passwordBy = By.xpath(baseXPath.concat("div[4]/input[@id, 'password']"));
 
     private By dayBy = By.xpath(baseXPath.concat("div[5]/div/div[1]/div/select"));
@@ -58,9 +58,7 @@ public class SignUpPage extends PageBase {
     }
 
     public void createValidAccount(Dictionary<String, String> inputFields, int[] dobIndexes, int countryIndex) {
-        // List<WebElement> dayOptions = getSelectoptions(dayBy);
-        // List<WebElement> monthOptions = getSelectoptions(monthBy);
-        // List<WebElement> yearOptions = getSelectoptions(yearBy);
+        // to do: title radio buttons
         
         Select selectDay = getSelector(dayBy);
         selectDay.selectByIndex(dobIndexes[0]);

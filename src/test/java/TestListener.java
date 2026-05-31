@@ -5,16 +5,16 @@ import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
 
-// import org.junit.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 public class TestListener implements ITestListener {
-    // @Test
+    @Override
     public void onTestFailure(ITestResult result) {
+        System.out.println("Test failure: " + result.getName());
         WebDriver driver = (WebDriver) result.getTestContext().getAttribute("driver");
-        System.out.println("Test failure. Screenshot captured.");
+
         if (driver != null) {
             try {
                 File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

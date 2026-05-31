@@ -3,33 +3,29 @@ import org.openqa.selenium.By;
 
 public class LoginPage extends PageBase {
 
-    private By emailBy = By.xpath("//section//div[contains(@class, 'login')]/form/input[2]");
-    private By passwordBy = By.name("password");
-    private By loginBy = 
-        By.xpath(
-            "//div[@class='container']/div[@class='row']/div[contains(@class, 'offset-1')]/div[@class='login-form']/form/button[@data-qa='login-button']"
-        );
+    private By logInEmailBy = By.xpath("//div[1]//form/input[@name='email']");
+    private By logInPasswordBy = By.xpath("//div[1]//form/input[@name='password']");
+    private By logInBtnBy = By.xpath("//div[1]//form/button[@type='submit']");
     
-    // signup
-    private String baseXPath = "//section/div/div/div/div/form/";
-    private By signUpUserNameBy = By.xpath(baseXPath.concat("div[2]/input[@id, 'name']"));
-    private By signUpEmailBy = By.xpath(baseXPath.concat("div[3]/input[1]"));
+    private By signUpUserNameBy = By.xpath("//div[3]//form/input[@name='name']");
+    private By signUpEmailBy =  By.xpath("//div[3]//form/input[@name='email']");
+    private By signUpBtnBy = By.xpath("//div[3]//form/button[@type='submit']");
 
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
-    public MainPage loginValidUser(String userName, String password) {
-        driver.findElement(emailBy).sendKeys(userName);
-        driver.findElement(passwordBy).sendKeys(password);
-        driver.findElement(loginBy).click();
+    public MainPage logInWith(String userName, String password) {
+        driver.findElement(logInEmailBy).sendKeys(userName);
+        driver.findElement(logInPasswordBy).sendKeys(password);
+        driver.findElement(logInBtnBy).click();
         return new MainPage(driver);
     }
 
-    public SignUpPage redirectUserToSignUpPage(String userName, String email) {
+    public SignUpPage signUpWith(String userName, String email) {
         driver.findElement(signUpUserNameBy).sendKeys(userName);
         driver.findElement(signUpEmailBy).sendKeys(email);
-        // click the create account button
+        driver.findElement(signUpBtnBy).click();
         return new SignUpPage(driver);
     }
 }
