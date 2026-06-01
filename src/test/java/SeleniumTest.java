@@ -15,11 +15,16 @@ import org.openqa.selenium.By;
 
 import java.time.Duration;
 
-// import static org.junit.Assert.assertFalse;
+import javax.imageio.ImageIO;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 // @Listeners(TestListener.class)
 
@@ -124,7 +129,10 @@ public class SeleniumTest {
     
     @Test
     public void testSubmitReviewSuccess() {
-        // "Fill or read the content of a textarea element"
+        ProductDetailsPage detailsPage = mainPage.getProductDetails("//div[@class='features_items']/div[2]//a");
+        detailsPage.writeReview("Test Reviewer", "review@example.com", "This item was reviewed By Test Reviewer.");
+        String reviewContent = driver.findElement(By.xpath("/form[@id='review-form']//textarea")).getText();
+        assertEquals(reviewContent, "This item was reviewed By Test Reviewer.");
         System.out.println("Review successfully submitted.");
     }
     @Test
@@ -148,8 +156,6 @@ public class SeleniumTest {
 
     @Test
     public void testMultiplePages() {
-        // "Define an array of URLs or page data, iterate over them and verify something on each page 
-        // (e.g. check title or a specific element on 5 different pages using a loop)"
         String[] URLs = {"https://automationexercise.com/", "https://automationexercise.com/products", "https://automationexercise.com/category_products/1"};
         String[] titles = {"FEATURES ITEMS", "ALL PRODUCTS", "WOMEN - DRESS PRODUCTS"};
         for (int i = 0; i < 3; i++) {
@@ -181,26 +187,52 @@ public class SeleniumTest {
     }
 
     // ========================================================================================================================================= //
-    @Test
-    public void testAddCookie() {
-        // to do
-    }
-
-    @Test
-    public void testHoverOverProduct() {
-        // to do
-    }
+    // @Test
+    // public void testAddCookie() {
+    //     // to do
+    // }
 
     // @Test
-    // public void testSearch2() {
-    //     String[] searchQueries={"something","asd","xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"};
-    //     for(String searchQuery : searchQueries) {
-    //         MainPage mainPage = new MainPage(this.driver);
-    //         SearchResultPage searchResultPage = mainPage.search(searchQuery);
-    //         String bodyText = searchResultPage.getBodyText();
-    //         Assert.assertTrue(bodyText.contains("Searched content"));
-    //     }  
+    // public void testHoverOverProduct() {
+    //     // to do
     // }
+
+    // @Test
+    // public void testBrowserHistory() {
+    //     // to do
+    // }
+
+    // @Test
+    // public void testScroll() {
+    //     // to do
+    // }
+
+    @Test
+    public void testDownloadProductImage() {
+        String foldername = "saved-images";
+        File savedImgFolder = new File(foldername);
+        if(savedImgFolder.exists() && savedImgFolder.isDirectory()) {
+            savedImgFolder.delete();
+        }
+        savedImgFolder.mkdir();
+        
+        try {
+            driver.get("https://automationexercise.com/product_details/1");
+            WebElement productImage = driver.findElement(By.xpath("//div[@class='view-product']/img"));
+            String productImageSrc = productImage.getAttribute("src");
+            URL imageURL = new URL(productImageSrc);
+            BufferedImage saveImage = ImageIO.read(imageURL);
+            String fullImagePath = foldername.concat("/product-1.png");
+            ImageIO.write(saveImage, "png", new File(fullImagePath));
+
+
+            File verifyDownloadedImage = new File(fullImagePath);
+            assertTrue(verifyDownloadedImage.exists());
+            assertTrue(verifyDownloadedImage.getParentFile().getName().equals(foldername));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @After
     public void close() {

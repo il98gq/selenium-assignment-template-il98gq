@@ -3,11 +3,10 @@ import org.openqa.selenium.WebDriver;
 
 public class ProductDetailsPage extends PageBase {
 
-    // to do: rewrite to be in xpath format
-    private By inputNameBy = By.id("name");
-    private By inputEmailBy = By.id("email");
-    private By textAreaBy = By.id("review");
-    private By submitBtnBy = By.id("button-review");
+    private By inputNameBy = By.xpath("//form[@id='review-form']//input[@id='name']");
+    private By inputEmailBy = By.xpath("//form[@id='review-form']//input[@id='email']");
+    private By textAreaBy = By.xpath("/form[@id='review-form']//textarea");
+    private By submitBtnBy = By.xpath("//form[@id='review-form']//button");
 
     public ProductDetailsPage(WebDriver driver) {
         super(driver);

@@ -31,8 +31,8 @@ class MainPage extends PageBase {
     }
     
     // redirect to ProductDetailsPage
-    public ProductDetailsPage getFirstProductDetails() {
-        // click on product 
+    public ProductDetailsPage getProductDetails(String viewProductByString) {
+        driver.findElement(By.xpath(viewProductByString)).click();
         return new ProductDetailsPage(driver);
     }
 }
