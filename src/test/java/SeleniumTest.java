@@ -219,7 +219,7 @@ public class SeleniumTest {
     }
 
     @Test
-    public void testHoverOverProduct() {
+    public void testHoverOverCategoryAndClickOnOne() {
         // to do
     }
 
