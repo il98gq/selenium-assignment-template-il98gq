@@ -22,12 +22,12 @@ ai_usage:
   used: true
   tools: "ChatGPT"           # e.g. "Claude, GitHub Copilot"
   description: "Used ChatGPT to find a suitable website that wasn't already taken, to resolve dependency conflicts in build.gradle and 
-                to interpret error messages, then solving the problems by manual research (StackOverflow, Selenium.dev, GeeksForGeeks, Youtube)."
+                to interpret error messages and give general guidance, 
+                then solving the problems by manual research (StackOverflow, Selenium.dev, GeeksForGeeks, Youtube)."
                        
 # ----------------------------------------------------------
 # Quality requirements (gatekeepers)
 # ----------------------------------------------------------
-# These are not worth points, but they cap your maximum grade.
 # Set each to true when you are confident it applies.
 # ----------------------------------------------------------
 quality:
