@@ -7,28 +7,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class SignUpPage extends PageBase {
-
-    private String baseXPath = "//div[@class='login-form']//";
-
-    private By middleWareTokenBy = By.xpath(baseXPath.concat("input[1]"));
-    
-    private By passwordBy = By.xpath(baseXPath.concat("input[@id='password']"));
-
-    private By newsletterCheckboxBy = By.xpath(baseXPath.concat("input[@type='checkbox' and @name='newsletter']"));
-    private By specialOfferCheckboxBy = By.xpath(baseXPath.concat("input[@type='checkbox' and @name='optin']"));
-
-    // private By firstNameBy = By.xpath(baseXPath.concat("p[1]/input[@id, 'first_name']"));
-    // private By lastNameBy = By.xpath(baseXPath.concat("p[2]/input[@id, 'last_name']"));
-    // private By companyBy = By.xpath(baseXPath.concat("p[3]/input[@id, 'company']"));
-    // private By address1By = By.xpath(baseXPath.concat("p[4]/input[@id, 'address1']"));
-    // private By address2By = By.xpath(baseXPath.concat("p[5]/input[@id, 'address2']"));
-    // private By countryBy = By.xpath(baseXPath.concat("p[6]/select"));
-    // private By stateBy = By.xpath(baseXPath.concat("p[75]/input"));
-    // private By cityBy = By.xpath(baseXPath.concat("p[8]/input"));
-    // private By zipcodeBy = By.xpath(baseXPath.concat("p[9]/input"));
-    // private By mobileNumberBy = By.xpath(baseXPath.concat("p[10]/input"));
-
-    // private By createAccountBy = By.xpath(baseXPath.concat("button"));
+    private By middleWareTokenBy = By.xpath("//input[1]");
+    private By passwordBy = By.xpath("//input[@id='password']");
+    private By newsletterCheckboxBy = By.xpath("//input[@type='checkbox' and @name='newsletter']");
+    private By specialOfferCheckboxBy = By.xpath("//input[@type='checkbox' and @name='optin']");
 
     public SignUpPage(WebDriver driver) {
         super(driver);
@@ -39,7 +21,7 @@ public class SignUpPage extends PageBase {
     }
 
     public void selectRadioInput(String title) {
-        By radioBtnBy = By.xpath("//div[@class='login-form']//input[@type='radio' and @value='" + title + "']");
+        By radioBtnBy = By.xpath("//input[@type='radio' and @value='" + title + "']");
         WebElement radioBtn = driver.findElement(radioBtnBy);
         if (radioBtn.isDisplayed() && !radioBtn.isSelected()) {
             radioBtn.click();
@@ -60,6 +42,7 @@ public class SignUpPage extends PageBase {
     }
 
     public WebElement getNewsletterCheckBox() { return driver.findElement(newsletterCheckboxBy); }
+    
     public void selectNewsLetterCheckBox() {
         WebElement checkbox = this.getNewsletterCheckBox();
         
@@ -74,6 +57,7 @@ public class SignUpPage extends PageBase {
     }
 
     public WebElement getSpecialOfferCheckBox() { return driver.findElement(specialOfferCheckboxBy); }
+    
     public void selectSpecialOfferCheckBox() {
         WebElement checkbox = this.getSpecialOfferCheckBox();
         if (checkbox.isDisplayed() && !checkbox.isSelected()) {

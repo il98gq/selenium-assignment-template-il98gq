@@ -1,21 +1,21 @@
 import org.junit.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+// import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-// import org.openqa.selenium.remote.RemoteWebDriver;
 // import org.openqa.selenium.NoSuchElementException; 
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.PageLoadStrategy;
 
 // import org.testng.annotations.Listeners;
 
-import java.time.Duration;
 import java.util.Set;
+import java.time.Duration;
 
 import javax.imageio.ImageIO;
 
@@ -70,7 +70,8 @@ public class SeleniumTest {
         String testInputEmail = "test.values@example.com";
         String testPassword = "test.password";
         String testDay = "5";
-        String testMonth = "7";
+        String testMonth = "July";
+        String testMonthValue = "7";
         String testYear = "1999";
 
         LoginPage loginPage = mainPage.toLogIn();
@@ -101,11 +102,14 @@ public class SeleniumTest {
 
         // DoB
         assertEquals(testDay, signUpPage.getSelectedDropDownValue(dayBy, testDay));
-        // assertEquals(testMonth, signUpPage.getSelectedDropDownValue(monthBy, testMonth));
+        assertEquals(testMonth, signUpPage.getSelectedDropDownValue(monthBy, testMonthValue));
         assertEquals(testYear, signUpPage.getSelectedDropDownValue(yearBy, testYear));
 
         // checkboxes
         WebElement newsCheckBox = signUpPage.getNewsletterCheckBox();
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].scrollIntoView(true);", newsCheckBox);
+        
         assertFalse(newsCheckBox.isSelected());
         signUpPage.selectNewsLetterCheckBox();
         assertTrue(newsCheckBox.isSelected());
@@ -155,26 +159,6 @@ public class SeleniumTest {
     }
     
     @Test
-    public void testFillOrderMessage() {
-        // to do
-    }
-    
-    // @Test
-    // public void testAddMultipleProductsToCartSuccess() {
-    //     driver.get("https://automationexercise.com/product_details/1");
-    //     String quantityInputBy = "//div[@class='product-details']//input[@name='quantity']";
-    //     driver.findElement(By.xpath(quantityInputBy)).sendKeys("5");
-    //     assertEquals("5", driver.findElement(By.xpath(quantityInputBy)).getAttribute("value"));
-
-    //     driver.findElement(By.xpath("//div[@class='product-details']//button")).click();
-    // }
-    
-    @Test
-    public void testPlacingOrder() {
-        // "Submit a form that requires a registered/logged-in user"
-    }
-
-    @Test
     public void testStaticPage() {
         assertTrue(mainPage.getFooterBottomText().contains("Copyright"));
     }
@@ -185,7 +169,7 @@ public class SeleniumTest {
         String[] titles = {"FEATURES ITEMS", "ALL PRODUCTS", "WOMEN - DRESS PRODUCTS"};
         for (int i = 0; i < 3; i++) {
             driver.get(URLs[i]);
-            String title = driver.findElement(By.xpath("//section//div[@class='features_items']/h2")).getText();
+            String title = driver.findElement(By.xpath("//div[@class='features_items']/h2")).getText();
             System.out.println("Expected: " + titles[i] + ", Actual: " + title);
             assertEquals(titles[i], title);
         }
@@ -218,15 +202,24 @@ public class SeleniumTest {
         }
     }
 
-    @Test
-    public void testHoverOverCategoryAndClickOnOne() {
-        // to do
-    }
+    // @Test
+    // public void testNavigateWebsite() {
+    //     String title = driver.getTitle();
+    //     assertEquals("Automation Exercise", title);
+        
+    //     driver.navigate().to("https://automationexercise.com/products");
+    //     title = driver.getTitle();
+    //     assertEquals("Automation Exercise - All Products", title);
 
-    @Test
-    public void testNavigateWebsite() {
-        // to do
-    }
+    //     driver.navigate().back();
+    //     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+    //     wait.until(ExpectedConditions.urlToBe("https://automationexercise.com"));
+    //     title = driver.getTitle();
+    //     assertEquals("Automation Exercise", title);
+
+    //     driver.navigate().forward();
+    //     title = driver.getTitle();        assertEquals("Automation Exercise - Tops Products", title);
+    // }
 
     @Test
     public void testScrollToPageBottom() {

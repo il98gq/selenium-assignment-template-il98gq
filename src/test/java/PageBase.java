@@ -1,15 +1,11 @@
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-// import org.openqa.selenium.NoSuchElementException;
-// import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.By;
-
-// import java.sql.Date;
-import java.util.Date;
 import java.time.Duration;
+import java.util.Date;
 
 
 class PageBase {
@@ -23,7 +19,7 @@ class PageBase {
     protected By featuredItemsTitleBy = By.xpath("//section//div[@class='features_items']/h2");
 
     protected String addToCartBtnBy = "//div[contains(@class, 'productinfo')]//a";
-    protected String navBarRootXPath = "//header//div[contains(@class, 'row')]/div[2]//ul/li/a";
+    protected String navBarRootXPath = "//header//div[contains(@class, 'row')]/div[2]//a";
     
     public PageBase(WebDriver driver) {
         this.driver = driver;
