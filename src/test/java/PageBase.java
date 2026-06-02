@@ -4,8 +4,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 // import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.By;
 
+// import java.sql.Date;
+import java.util.Date;
 import java.time.Duration;
 
 
@@ -18,7 +21,8 @@ class PageBase {
     protected By footerBottomBy = By.xpath("//footer/div[2]//p");
     protected By footerWidgetBy = By.xpath("//footer/div[1]//h2");
     protected By featuredItemsTitleBy = By.xpath("//section//div[@class='features_items']/h2");
-    
+
+    protected String addToCartBtnBy = "//div[contains(@class, 'productinfo')]//a";
     protected String navBarRootXPath = "//header//div[contains(@class, 'row')]/div[2]//ul/li/a";
     
     public PageBase(WebDriver driver) {
@@ -61,6 +65,16 @@ class PageBase {
     public LoginPage toLogOut() {
         driver.findElement(By.xpath(navBarRootXPath.concat("[@href='/logout']"))).click();
         return new LoginPage(driver);
+    }
+
+    public void setCookie(String name, String value) {
+        Cookie testCookie = new Cookie.Builder(name, value).expiresOn(new Date(2027, 06, 02)).path("/").build();
+        driver.manage().addCookie(testCookie);
+    }
+
+    public void addProductToCart(String productId) {
+        By productBy = By.xpath(addToCartBtnBy + "a[@data-product-id='" + productId + "']");
+        driver.findElement(productBy).click();
     }
    
 }

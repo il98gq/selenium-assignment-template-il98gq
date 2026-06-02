@@ -2,17 +2,20 @@ import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-// import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 // import org.openqa.selenium.remote.RemoteWebDriver;
 // import org.openqa.selenium.NoSuchElementException; 
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.PageLoadStrategy;
 
 // import org.testng.annotations.Listeners;
 
 import java.time.Duration;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -34,15 +37,17 @@ public class SeleniumTest {
     @Before
     public void setup()  throws MalformedURLException  {
         ChromeOptions options = new ChromeOptions();
+        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         driver = new ChromeDriver(options);
+        driver.manage().deleteAllCookies();
         driver.get("https://automationexercise.com");
         driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // WebElement cookieAccept = driver.findElement(By.cssSelector(".fc-cta-consent"));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".fc-cta-consent"))));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.cssSelector(".fc-cta-consent"))));
-        driver.findElement(By.cssSelector(".fc-cta-consent")).click();
+        By cookieAcceptBy = By.cssSelector(".fc-cta-consent");
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(cookieAcceptBy)));
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(cookieAcceptBy)));
+        driver.findElement(cookieAcceptBy).click();
 
         mainPage = new MainPage(driver);
     }
@@ -92,7 +97,7 @@ public class SeleniumTest {
 
         // password
         signUpPage.fillPasswordInput(testPassword);
-        assertEquals(driver.findElement(passwordBy).getAttribute("value"), testPassword);
+        assertEquals(testPassword, driver.findElement(passwordBy).getAttribute("value"));
 
         // DoB
         assertEquals(testDay, signUpPage.getSelectedDropDownValue(dayBy, testDay));
@@ -173,12 +178,6 @@ public class SeleniumTest {
     public void testStaticPage() {
         assertTrue(mainPage.getFooterBottomText().contains("Copyright"));
     }
-    
-    // @Test
-    // public void testThatFails() {
-    //     // driver.findElement(null);
-    //     System.out.println("This test will fail.");
-    // }
 
     @Test
     public void testMultiplePages() {
@@ -208,25 +207,37 @@ public class SeleniumTest {
     }
 
     // ========================================================================================================================================= //
-    // @Test
-    // public void testAddCookie() {
-    //     // to do
-    // }
+    @Test
+    public void testSetCookie() {
+        mainPage.setCookie("im_a_selenium_test_cookie", "selenium_assignment");
+        Set<Cookie> cookies = driver.manage().getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("im_a_selenium_test_cookie")) {
+                assertEquals("selenium_assignment", cookie.getValue());
+            }
+        }
+    }
 
-    // @Test
-    // public void testHoverOverProduct() {
-    //     // to do
-    // }
+    @Test
+    public void testHoverOverProduct() {
+        // to do
+    }
 
-    // @Test
-    // public void testBrowserHistory() {
-    //     // to do
-    // }
+    @Test
+    public void testNavigateWebsite() {
+        // to do
+    }
 
-    // @Test
-    // public void testScroll() {
-    //     // to do
-    // }
+    @Test
+    public void testScrollToPageBottom() {
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebElement footerBottom = driver.findElement(mainPage.footerBottomBy);
+        wait.until(ExpectedConditions.visibilityOf(footerBottom));
+        assertTrue(footerBottom.isDisplayed());
+    }
 
     @Test
     public void testDownloadProductImage() {

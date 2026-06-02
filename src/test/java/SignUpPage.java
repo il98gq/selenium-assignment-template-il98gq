@@ -1,7 +1,10 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class SignUpPage extends PageBase {
 
@@ -59,6 +62,11 @@ public class SignUpPage extends PageBase {
     public WebElement getNewsletterCheckBox() { return driver.findElement(newsletterCheckboxBy); }
     public void selectNewsLetterCheckBox() {
         WebElement checkbox = this.getNewsletterCheckBox();
+        
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(checkbox));
+        wait.until(ExpectedConditions.elementToBeClickable(checkbox));
+        
         if (checkbox.isDisplayed() && !checkbox.isSelected()) {
             checkbox.click();
             System.out.println("Newsletter checkbox selected.");
