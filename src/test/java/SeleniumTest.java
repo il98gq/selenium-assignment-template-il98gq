@@ -109,7 +109,7 @@ public class SeleniumTest {
         WebElement newsCheckBox = signUpPage.getNewsletterCheckBox();
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].scrollIntoView(true);", newsCheckBox);
-        
+
         assertFalse(newsCheckBox.isSelected());
         signUpPage.selectNewsLetterCheckBox();
         assertTrue(newsCheckBox.isSelected());
@@ -153,18 +153,18 @@ public class SeleniumTest {
         By reviewAckBy = By.xpath("//div[@id='review-section']//span");
         ProductDetailsPage detailsPage = mainPage.getProductDetails("//div[@class='features_items']//a[@href='/product_details/1']");
         detailsPage.writeReview("Test Reviewer", "review@example.com", "This item was reviewed By Test Reviewer.");
-         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement reviewAck = wait.until(ExpectedConditions.visibilityOfElementLocated(reviewAckBy));
         assertEquals("Thank you for your review.", reviewAck.getText());
     }
     
     @Test
-    public void testStaticPage() {
+    public void testMainPageFooterText() {
         assertTrue(mainPage.getFooterBottomText().contains("Copyright"));
     }
 
     @Test
-    public void testMultiplePages() {
+    public void testMultiplePagesH2() {
         String[] URLs = {"https://automationexercise.com/", "https://automationexercise.com/products", "https://automationexercise.com/category_products/1"};
         String[] titles = {"FEATURES ITEMS", "ALL PRODUCTS", "WOMEN - DRESS PRODUCTS"};
         for (int i = 0; i < 3; i++) {
@@ -201,25 +201,6 @@ public class SeleniumTest {
             }
         }
     }
-
-    // @Test
-    // public void testNavigateWebsite() {
-    //     String title = driver.getTitle();
-    //     assertEquals("Automation Exercise", title);
-        
-    //     driver.navigate().to("https://automationexercise.com/products");
-    //     title = driver.getTitle();
-    //     assertEquals("Automation Exercise - All Products", title);
-
-    //     driver.navigate().back();
-    //     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-    //     wait.until(ExpectedConditions.urlToBe("https://automationexercise.com"));
-    //     title = driver.getTitle();
-    //     assertEquals("Automation Exercise", title);
-
-    //     driver.navigate().forward();
-    //     title = driver.getTitle();        assertEquals("Automation Exercise - Tops Products", title);
-    // }
 
     @Test
     public void testScrollToPageBottom() {
