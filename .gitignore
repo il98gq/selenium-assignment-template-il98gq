@@ -1,0 +1,31 @@
+# gradle
+.gradle/
+.gradletasknamecache
+gradle-app.setting
+!gradle-wrapper.jar
+build/
+bin/
+
+# vscode
+.vscode/
+.code-workspace
+
+# intellij
+.idea
+*.iml
+
+# eclipse
+.settings/
+.classpath
+.project
+
+# test outputs
+saved-images/
+
+# java
+*.class
+*.log
+*.jar
+*.war
+*.ear
+hs_err_pid*
